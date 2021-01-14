@@ -1,4 +1,71 @@
 .content {
-    display: block;
+    padding: 0;
     margin: 0 auto;
+    background: lightblue;
+    width: 70%;
+    height: 10rem;
+}
+
+.a__links{
+    display: flex;
+    flex-direction: row;
+    gap: 2rem;
+    background: lightblue;
+
+    padding: 0.5rem;
+}
+
+.nav__link {
+    text-decoration: none;
+    text-transform: capitalize;
+    color: crimson;
+    font-size: 2rem;
+}
+
+.logo {
+    text-transform: uppercase;
+    font-family: cursive;
+}
+
+table, th, td {
+    border: 1px solid rgb(58, 68, 78);
+    border-collapse: collapse;
+    margin: 0 auto;
+}
+
+th, td {
+    padding: 15px;
+}
+
+table {
+    margin-bottom: 7rem;
+}
+
+.maden__img {
+    width: auto;
+    height: 400px;
+
+    margin-bottom: 50px;
+}
+
+.catalog{
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+}
+
+.maden__item {
+    position: relative;
+    display: block;
+}
+
+.price {
+    position: absolute;
+    display: block;
+    bottom: 0;
+}
+
+.maden__link {
+    text-decoration: none;
+    color: black;
+    font-size: 30px;
 }
