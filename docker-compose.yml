@@ -9,7 +9,7 @@ services:
     environment:
       LANG: C.UTF-8
       MYSQL_ROOT_PASSWORD: my_secret_pw
-      MYSQL_DATABASE: game_db
+      MYSQL_DATABASE: hm
       MYSQL_USER: devuser
       MYSQL_PASSWORD: devpass
     ports:
@@ -24,7 +24,7 @@ services:
     depends_on:
       - db
     volumes:
-      - ./php/:/var/www/html/
+      - ./application/:/var/www/html/
     ports:
       - "8100:80"
     stdin_open: true
