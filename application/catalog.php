@@ -39,11 +39,11 @@ echo Utils::renderHeader("./html/header.html", "Главная" );
 //
 //?>
 <!--</table>-->
- <a href="add.php" class="button">Добавить...</a>
+ <a href="add.php" class="btn btn-outline-dark mt-3">Добавить</a>
 <div class="catalog">
 <?
 $db = Utils::getPDO();
-foreach ($db->query("select id, m_name, pic, price from maden;") as $row){
+foreach ($db->query("select maden.id as id, m_name, pic, price, status, a.fio as fio from maden join author a on a.id = maden.author_id;") as $row){
     echo Utils::renderMaden($row);
 }
 ?>
