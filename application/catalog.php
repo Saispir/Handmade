@@ -1,4 +1,4 @@
-<?
+ <?
 include "php/Utils.php";
 
 use hm\Utils;
@@ -39,6 +39,7 @@ echo Utils::renderHeader("./html/header.html", "Главная" );
 //
 //?>
 <!--</table>-->
+ <a href="add.php" class="button">Добавить...</a>
 <div class="catalog">
 <?
 $db = Utils::getPDO();
