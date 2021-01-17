@@ -11,16 +11,17 @@ $decoded = base64_encode($result['pic']);
  ?>
 <h1 class="mt-3"><?echo $result['name']?></h1>
 <a class="btn btn-warning mb-3" href="edit_maden.php?id=<?echo $_GET['id']?>">Изменить</a>
+<a class="btn btn-info mb-3" href="add_to_customer.php?id=<?echo $_GET['id']?>">Добавить в корзину</a>
  <div class="row">
   <div class="col">
    <img src='data:image/png;base64,<?echo $decoded?>' class='card-img-top' alt=''>
   </div>
   <div class="col">
 
-    <div class="row"><h2><?echo $result['fio']?></h2></div>
-    <div class="row"><h4><a href="mailto:<?echo $result['email']?>"><?echo $result['email']?></a></h4></div>
-    <div class="row"><h4><a href="tel:<?echo $result['phone']?>"><?echo $result['phone']?></a></h4></div>
-    <div class="row"><h4><?echo $result['price']?> ₽</h4></div>
+    <div class="row mb-3"><h2><?echo $result['fio']?></h2></div>
+    <div class="row mb-3"><h4><a href="mailto:<?echo $result['email']?>"><?echo $result['email']?></a></h4></div>
+    <div class="row mb-3"><h4><a href="tel:<?echo $result['phone']?>"><?echo $result['phone']?></a></h4></div>
+    <div class="row mb-3"><h4><?echo $result['price']?> ₽</h4></div>
 
   </div>
  </div>

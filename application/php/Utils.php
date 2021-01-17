@@ -52,13 +52,13 @@ class Utils
   </select>
   <button class="btn btn-outline-secondary" type="button">Button</button>
 </div>*/
-    $select = "<div class='input-group'><select class='form-select' name='{$selectName}' onchange='update(this.value)' id='id' required><option selected>$default</option> ";
+    $select = "<div class='input-group'><select class='form-select' name='{$selectName}' onchange='update(this.value)' id='id' required><option value='' selected>$default</option> ";
 
     foreach ($db->query("SELECT id, {$additionalParam} FROM {$nameOfTable};") as $row) {
         $select .= "<option value='{$row['id']}'>{$row[$additionalParam]}</option>";
     }
 
-    $select .= "</select>";
+    $select .= "</select></div>";
     return $select;
     }
 

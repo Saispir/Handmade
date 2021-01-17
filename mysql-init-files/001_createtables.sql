@@ -46,6 +46,8 @@ CREATE TABLE IF NOT EXISTS customer_maden (
     customer_id INT NOT NULL,
     maden_id INT NOT NULL,
 
+    UNIQUE(maden_id),
+
     FOREIGN KEY (customer_id) REFERENCES customer(id) ON UPDATE CASCADE ON DELETE CASCADE,
     FOREIGN KEY (maden_id) REFERENCES maden(id) ON UPDATE CASCADE ON DELETE RESTRICT
 );

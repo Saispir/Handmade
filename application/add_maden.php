@@ -9,10 +9,10 @@ echo Utils::renderHeader("./html/header.html", "Главная");
 <script>
     function readURL(input) {
         if (input.files && input.files[0]) {
-            var reader = new FileReader();
+            const reader = new FileReader();
 
             reader.onload = function (e) {
-                blah = document.getElementById('blah');
+                const blah = document.getElementById('blah');
                 blah.src = e.target.result;
             };
 
