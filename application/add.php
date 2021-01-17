@@ -11,15 +11,15 @@ echo Utils::renderHeader("./html/header.html", "Главная");
     <div class="form_inputs mt-3">
         <div class="input-group mb-3">
             <span class="input-group-text">₽</span>
-            <input type="text" class="form-control" aria-label="Amount (to the nearest dollar)">
+            <input type="text" class="form-control" name="price" aria-label="Цена" required>
             <span class="input-group-text">.00</span>
         </div>
         <div class="input-group mb-3">
             <span class="input-group-text" id="inputGroup-sizing-default">Название</span>
-            <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+            <input type="text" class="form-control" aria-label="Название" name="name" aria-describedby="inputGroup-sizing-default" required>
         </div>
         <div class="input-group mb-3">
-            <input type="file" class="form-control" id="inputGroupFile02">
+            <input type="file" class="form-control" name="pic" id="inputGroupFile02" required>
             <label class="input-group-text" for="inputGroupFile02">Изображение</label>
         </div>
        <?

@@ -76,12 +76,13 @@ class Utils
 
     public static function renderMaden(array $array) : string {
        $b=$array['status']==='sold'?'disabled':'';
+       $decoded = base64_encode($array['pic']);
         return "<div class='card' style='width: 18rem;'>
-  <img src='{$array['pic']}' class='card-img-top' alt=''>
+  <img src='data:image/png;base64,{$decoded}' class='card-img-top' alt=''>
   <div class='card-body'>
     <h5 class='card-title'>{$array['m_name']}</h5>
     <p class='card-text'>{$array['fio']}</p>
-    <a href='#' class='btn btn-primary {$b}'>{$array['price']}</a>
+    <a href='./maden_item.php?id={$array['id']}' class='btn btn-primary {$b}'>{$array['price']} ₽</a>
     </div>
 </div>";
 //        return "<div class='maden__item'>
