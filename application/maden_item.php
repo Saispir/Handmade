@@ -10,7 +10,7 @@ $result = $query->fetch();
 $decoded = base64_encode($result['pic']);
  ?>
 <h1 class="mt-3"><?echo $result['name']?></h1>
-<a class="btn btn-warning" href="edit_maden.php?id=<?echo $_GET['id']?>">Изменить</a>
+<a class="btn btn-warning mb-3" href="edit_maden.php?id=<?echo $_GET['id']?>">Изменить</a>
  <div class="row">
   <div class="col">
    <img src='data:image/png;base64,<?echo $decoded?>' class='card-img-top' alt=''>
