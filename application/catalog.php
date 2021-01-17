@@ -39,7 +39,7 @@ echo Utils::renderHeader("./html/header.html", "Главная" );
 //
 //?>
 <!--</table>-->
- <a href="add.php" class="btn btn-outline-dark mt-3 mb-3">Добавить</a>
+ <a href="add_maden.php" class="btn btn-outline-dark mt-3 mb-3">Добавить</a>
 <div class="catalog">
 
 <?

@@ -17,3 +17,6 @@ if(!empty($_POST) and !empty($_FILES)){
         header("Location: ../index.php");
     }
 }
+else{
+    header("Location: ../index.php");
+}
