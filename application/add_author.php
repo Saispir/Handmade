@@ -22,7 +22,7 @@ echo Utils::renderHeader("./html/header.html", "Главная");
                 <label for="inputPhone" class="sr-only">Номер телефона</label>
                 <input type="tel" id="inputPhone" class="form-control mb-3" placeholder="8(999)123-45-67" required=""
                        autofocus="" name="phone">
-                <button class="btn btn-lg btn-primary btn-block" type="submit">Зарегестрировать</button>
+                <button class="btn btn-lg btn-primary btn-block mb-3" type="submit">Зарегистрировать</button>
             </form>
             </div>
             <div class="col-sm"></div>
