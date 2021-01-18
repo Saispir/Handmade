@@ -27,19 +27,19 @@
     font-family: cursive;
 }
 
-table, th, td {
-    border: 1px solid rgb(58, 68, 78);
-    border-collapse: collapse;
-    margin: 0 auto;
-}
+/*table, th, td {*/
+/*    border: 1px solid rgb(58, 68, 78);*/
+/*    border-collapse: collapse;*/
+/*    margin: 0 auto;*/
+/*}*/
 
-th, td {
-    padding: 15px;
-}
+/*th, td {*/
+/*    padding: 15px;*/
+/*}*/
 
-table {
-    margin-bottom: 7rem;
-}
+/*table {*/
+/*    margin-bottom: 7rem;*/
+/*}*/
 
 .maden__img {
     width: auto;

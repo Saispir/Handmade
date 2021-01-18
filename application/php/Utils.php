@@ -77,7 +77,7 @@ class Utils
     public static function renderMaden(array $array) : string {
        $b=$array['status']==='sold'?'disabled':'';
        $decoded = base64_encode($array['pic']);
-        return "<div class='card' style='width: 18rem;'>
+        return "<div class='card mb-3' style='width: 18rem;'>
   <img src='data:image/png;base64,{$decoded}' class='card-img-top' alt=''>
   <div class='card-body'>
     <h5 class='card-title'>{$array['m_name']}</h5>
