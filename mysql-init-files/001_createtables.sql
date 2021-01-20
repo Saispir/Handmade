@@ -1,94 +1,61 @@
-create database if not exists hm;
-use hm;
-create table author
-(
-    id    int auto_increment
-        primary key,
-    fio   varchar(100) not null,
-    phone varchar(20)  not null,
-    email varchar(50)  not null
+CREATE DATABASE IF NOT EXISTS hm;
+USE hm;
+
+CREATE TABLE IF NOT EXISTS author (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    fio VARCHAR(100) NOT NULL,
+    phone VARCHAR(20) NOT NULL,
+    email VARCHAR(50) NOT NULL
 );
 
-create table customer
-(
-    id    int auto_increment
-        primary key,
-    fio   varchar(100) not null,
-    phone varchar(20)  not null,
-    email varchar(50)  not null
+CREATE TABLE IF NOT EXISTS material (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    m_name VARCHAR(30) NOT NULL
 );
 
-create table customer_order
-(
-    adress      varchar(255)                                                not null,
-    status      enum ('waiting', 'payed') default '_utf8mb4\\''waiting\\''' not null,
-    customer_id int                                                         not null,
-    constraint customer_order_ibfk_1
-        foreign key (customer_id) references customer (id)
-            on update cascade on delete cascade
+CREATE TABLE IF NOT EXISTS maden (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    price INT NOT NULL CHECK (price>0),
+    m_name VARCHAR(30) NOT NULL,
+    pic longblob NOT NULL,
+    status ENUM('available', 'sold') NOT NULL DEFAULT('available'),
+
+    author_id INT NOT NULL,
+
+    FOREIGN KEY (author_id) REFERENCES author(id) ON UPDATE CASCADE ON DELETE RESTRICT
 );
 
-create index customer_id
-    on customer_order (customer_id);
+CREATE TABLE IF NOT EXISTS material_maden (
+    usage_amount INT NOT NULL DEFAULT(0),
 
-create table maden
-(
-    id        int auto_increment
-        primary key,
-    price     int                                                            not null,
-    m_name    varchar(30)                                                    not null,
-    pic       longblob                                                       not null,
-    status    enum ('available', 'sold') default '_utf8mb4\\''available\\''' not null,
-    author_id int                                                            not null,
-    constraint maden_ibfk_1
-        foreign key (author_id) references author (id)
-            on update cascade
+    maden_id INT NOT NULL,
+    material_id INT NOT NULL,
+
+    FOREIGN KEY (maden_id) REFERENCES maden(id) ON UPDATE CASCADE ON DELETE RESTRICT,
+    FOREIGN KEY (material_id) REFERENCES material(id) ON UPDATE CASCADE ON DELETE RESTRICT
 );
 
-create table customer_maden
-(
-    customer_id int not null,
-    maden_id    int not null,
-    constraint customer_maden_ibfk_1
-        foreign key (customer_id) references customer (id)
-            on update cascade on delete cascade,
-    constraint customer_maden_ibfk_2
-        foreign key (maden_id) references maden (id)
-            on update cascade
+CREATE TABLE IF NOT EXISTS customer (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    fio VARCHAR(100) NOT NULL,
+    phone VARCHAR(20) NOT NULL,
+    email VARCHAR(50) NOT NULL
 );
 
-create index customer_id
-    on customer_maden (customer_id);
+CREATE TABLE IF NOT EXISTS customer_maden (
+    customer_id INT NOT NULL,
+    maden_id INT NOT NULL,
 
-create index maden_id
-    on customer_maden (maden_id);
+    UNIQUE(maden_id),
 
-create index author_id
-    on maden (author_id);
-
-create table material
-(
-    id     int auto_increment
-        primary key,
-    m_name varchar(30) not null
+    FOREIGN KEY (customer_id) REFERENCES customer(id) ON UPDATE CASCADE ON DELETE CASCADE,
+    FOREIGN KEY (maden_id) REFERENCES maden(id) ON UPDATE CASCADE ON DELETE RESTRICT
 );
 
-create table material_maden
-(
-    usage_amount int default 0 not null,
-    maden_id     int           not null,
-    material_id  int           not null,
-    constraint material_maden_ibfk_1
-        foreign key (maden_id) references maden (id)
-            on update cascade,
-    constraint material_maden_ibfk_2
-        foreign key (material_id) references material (id)
-            on update cascade
+CREATE TABLE IF NOT EXISTS customer_order (
+    adress VARCHAR(255) NOT NULL,
+    status ENUM('waiting', 'payed') NOT NULL DEFAULT('waiting'),
+
+    customer_id INT NOT NULL,
+    FOREIGN KEY (customer_id) REFERENCES customer(id) ON UPDATE CASCADE ON DELETE CASCADE
 );
-
-create index maden_id
-    on material_maden (maden_id);
-
-create index material_id
-    on material_maden (material_id);
-
