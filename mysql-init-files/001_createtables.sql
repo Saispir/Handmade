@@ -17,7 +17,7 @@ CREATE TABLE IF NOT EXISTS maden (
     id INT AUTO_INCREMENT PRIMARY KEY,
     price INT NOT NULL CHECK (price>0),
     m_name VARCHAR(30) NOT NULL,
-    pic VARCHAR(255) NOT NULL,
+    pic longblob NOT NULL,
     status ENUM('available', 'sold') NOT NULL DEFAULT('available'),
 
     author_id INT NOT NULL,
