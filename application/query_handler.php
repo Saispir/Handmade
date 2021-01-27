@@ -20,12 +20,12 @@ echo Utils::renderHeader("./html/header.html", "Главная");
         <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne"
              data-bs-parent="#accordionExample">
             <div class="accordion-body">
-                <pre><code class="sql bigger_font_size">SELECT *
+                <pre><code class="sql bigger_font_size">SELECT m_name, price
 FROM maden
 WHERE price > ?;</code></pre>
                 <form action="query_handler.php" method="post" class="operation">
                     <input type="hidden" name="query"
-                           value="select * from maden where price > ?;">
+                           value="select m_name, price from maden where price > :price;">
                     <div class="statements">
                         <input type="number" name="price" min="0" required>
                         <input type="submit" value="Выполнить">
@@ -44,42 +44,15 @@ WHERE price > ?;</code></pre>
         <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo"
              data-bs-parent="#accordionExample">
             <div class="accordion-body">
-                <pre><code class="sql bigger_font_size">SELECT *
+                <pre><code class="sql bigger_font_size">SELECT m_name, price
 FROM maden
-WHERE price > ?;</code></pre>
+WHERE author_id= ?;</code></pre>
                 <form action="query_handler.php" method="post" class="operation">
                     <input type="hidden" name="query"
-                           value="select * from maden where author_id = ?;">
+                           value="select m_name, price from maden where author_id = :author_id;">
                     <div class="statements">
                         <?
                         echo Utils::renderQueryToSelect("author_id", "fio", "author", "");
-                        ?>
-                        <input type="submit" value="Выполнить">
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
-    <div class="accordion-item">
-        <h2 class="accordion-header" id="headingThree">
-            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                    data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-                Все изделия по наличию материала
-            </button>
-        </h2>
-        <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree"
-             data-bs-parent="#accordionExample">
-            <div class="accordion-body">
-                <pre><code class="sql bigger_font_size">SELECT *
-FROM maden
-         JOIN material_maden mm ON maden.id = mm.maden_id
-WHERE MATERIAL_ID = ?;</code></pre>
-                <form action="query_handler.php" method="post" class="operation">
-                    <input type="hidden" name="query"
-                           value="select * from maden join material_maden mm on maden.id = mm.maden_id where material_id = ?;">
-                    <div class="statements">
-                        <?
-                        echo Utils::renderQueryToSelect("material", "m_name", "material", "");
                         ?>
                         <input type="submit" value="Выполнить">
                     </div>
@@ -102,10 +75,10 @@ FROM maden
          JOIN customer_maden CM ON maden.id = cm.maden_id
          JOIN customer_order CO ON cm.customer_id = co.customer_id
 WHERE co.status = 'waiting'
-  AND customer_id = ?;</code></pre>
+  AND co.customer_id = ?;</code></pre>
                 <form action="query_handler.php" method="post" class="operation">
                     <input type="hidden" name="query"
-                           value="select sum(price) from maden join customer_maden cm on maden.id = cm.maden_id join customer_order co on cm.customer_id = co.customer_id where co.status = 'waiting' and customer_id = ?;">
+                           value="select sum(price) from maden join customer_maden cm on maden.id = cm.maden_id join customer_order co on cm.customer_id = co.customer_id where co.status = 'waiting' and co.customer_id = :customer;">
                     <div class="statements">
                         <?
                         echo Utils::renderQueryToSelect("customer", "email", "customer", "");
@@ -129,7 +102,8 @@ WHERE co.status = 'waiting'
                 <pre><code class="sql bigger_font_size">SELECT adress, fio, phone, email, SUM(price) AS total, m_name
 FROM customer_order
          JOIN customer c ON c.id = customer_order.customer_id
-         JOIN maden m ON customer_order.status = m.status
+         JOIN customer_maden cm ON c.id = cm.customer_id
+         JOIN maden m ON cm.maden_id = m.id
 WHERE customer_order.status = ?
 GROUP BY adress, fio, phone, email, m_name; </code></pre>
                 <form action="query_handler.php" method="post" class="operation">
@@ -137,13 +111,14 @@ GROUP BY adress, fio, phone, email, m_name; </code></pre>
                            value="select adress, fio, phone, email, sum(price) as total, m_name
 from customer_order
          join customer c on c.id = customer_order.customer_id
-         join maden m on customer_order.status = m.status
-where customer_order.status = ?
+         join customer_maden cm on c.id = cm.customer_id
+         join maden m on cm.maden_id = m.id
+where customer_order.status = :status
 group by adress, fio, phone, email, m_name;">
                     <div class="statements">
                         <select name="status" id="">
-                            <option value="'payed'">Оплачен</option>
-                            <option value="'waiting'">В обработке</option>
+                            <option value='payed'>Оплачен</option>
+                            <option value='waiting'>В обработке</option>
                         </select>
                         <input type="submit" value="Выполнить">
                     </div>
@@ -187,19 +162,17 @@ WHERE status = 'sold';</code></pre>
                   <pre><code class="sql bigger_font_size">SELECT SUM(price)
 FROM maden
          JOIN customer_maden cm ON maden.id = cm.maden_id
-         JOIN customer_maden c ON maden.id = c.maden_id
          JOIN customer_order co ON cm.customer_id = co.customer_id
 WHERE co.status = 'payed'
-  AND c.customer_id = ?;</code></pre>
+  AND co.customer_id = ?;</code></pre>
                 <form action="query_handler.php" method="post" class="operation">
                     <input type="hidden" name="query"
                            value="SELECT SUM(price)
 FROM maden
          JOIN customer_maden cm ON maden.id = cm.maden_id
-         JOIN customer_maden c ON maden.id = c.maden_id
          JOIN customer_order co ON cm.customer_id = co.customer_id
 WHERE co.status = 'payed'
-  AND c.customer_id = ?;">
+  AND co.customer_id = :customer;">
                     <div class="statements">
                         <?
                         echo Utils::renderQueryToSelect("customer", "email", "customer", "");
